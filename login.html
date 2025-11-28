@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso a tu cuenta - List & Save</title>
+    <link rel="stylesheet" href="scss/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <a href="/" class="header__logo">
+                <img src="assets/images/logo.svg" alt="Logo List & Save" class="header__logo-img">
+            </a>
+            <a href="/" class="button button--secondary">Regresar</a>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="form-container animate-fadeIn">
+            <form class="form form--login">
+                <h1 class="form__title">Accede a tu cuenta</h1>
+
+                <div class="form__group">
+                    <label class="form__label" for="login-email">Tu correo</label>
+                    <input type="email" id="login-email" name="email" class="form__input" 
+                           placeholder="tu.correo@dominio.com" required>
+                    <span class="form__error"></span>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="login-password">Tu clave</label>
+                    <input type="password" id="login-password" name="password" class="form__input" 
+                           required>
+                    <span class="form__error"></span>
+                </div>
+
+                <div class="form__group form__group--checkbox">
+                    <input type="checkbox" id="remember" name="remember" class="form__checkbox">
+                    <label for="remember" class="form__label--checkbox">Mantener sesión activa</label>
+                </div>
+
+                <button type="submit" id="login-submit-btn" class="button button--primary button--full">Entrar</button>
+                <button type="button" id="demo-login-btn" class="button button--secondary button--full">Entrar con usuario demo</button>
+
+                <p class="form__footer">
+                    Primera vez aquí? <a href="register.html">Crear cuenta nueva</a>
+                </p>
+                <p class="form__footer">
+                    <a href="forgot-password.html">Recuperar contraseña</a>
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/api-client.js"></script>
+    <script src="js/data/user-repository.js"></script>
+    <script src="js/services/auth-service.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+ /* Estas son las animaciones que hacen que las cosas aparezcan suavemente! */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Empieza invisible */
+        transform: translateY(20px); /* Un poquito abajo */
+    }
+    to {
+        opacity: 1; /* Termina visible */
+        transform: translateY(0); /* En su lugar normal */
+    }
+}
+
+/* Esta animacion hace que las cosas entren desde la izquierda */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Estas clases son para usar las animaciones facilmente */
+.animate-fadeIn {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-slideIn {
+    animation: slideIn 0.4s ease forwards;
+}
+
+/* Este es el circulo que gira cuando algo esta cargando */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--color-background);
+    border-top: 4px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* Gira para siempre */
+}
+
+/* Hace que el circulo de vueltas */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Esto es para la barra de progreso */
+@keyframes progress {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.progress-animate {
+    animation: progress 0.3s ease;
+}
+
+/* Esta parte es para los logos que se mueven solos */
+.sponsors__slider {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.sponsors__track {
+    display: flex;
+    gap: 2rem;
+    white-space: nowrap;
+}
+
+.sponsors__group {
+    display: flex;
+    gap: 2rem;
+    flex-shrink: 0;
+}
+
+.sponsor-logo__wrapper {
+    flex-shrink: 0;
+}
+
+/* Mueve los logos de un lado a otro */
+@keyframes slideSponsors {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-25%);
+    }
+}
+
+/* Estas son animaciones para que la pagina se vea mas bonita */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.slide-in {
+    opacity: 0;
+    transform: translateX(-100px);
+    animation: slideIn 0.8s ease forwards;
+}
+
+/* Aqui empieza la parte de como se ve la pagina */
+.about-hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../assets/images/about-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 8rem 0;
+    text-align: center;
+}
+
+/* Estilos y animaciones para la línea del tiempo */
+.timeline__container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 0;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        background: var(--color-primary);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+}
+
+.timeline__item {
+    position: relative !important;
+    width: calc(50% - 30px) !important;
+    padding: 1rem !important;
+    background: var(--color-white) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    margin-bottom: 2rem !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    &::before {
+        content: '' !important;
+        position: absolute !important;
+        width: 20px !important;
+        height: 20px !important;
+        background: var(--color-primary) !important;
+        border-radius: 50% !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 1 !important;
+    }
+
+    /* Items del lado izquierdo */
+    &.timeline__item--left {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+        
+        
+        &::before {
+            right: -40px !important;
+            left: auto !important;
+        }
+        
+        &.animate {
+            animation: fadeInLeft 0.5s ease forwards !important;
+        }
+    }
+
+    /* Items del lado derecho */
+    &.timeline__item--right {
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        
+        
+        &::before {
+            left: -40px !important;
+            right: auto !important;
+        }
+        
+        &.animate {
+            animation: fadeInRight 0.5s ease forwards !important;
+        }
+    }
+
+    &.animate {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    h3 {
+        color: var(--color-primary) !important;
+        margin-bottom: 0.5rem !important;
+        font-size: 1.5rem !important;
+    }
+
+    p {
+        color: var(--color-text) !important;
+        margin: 0 !important;
+    }
+}
+
+/* Animaciones más rápidas para el timeline */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Esto hace que las fotos del equipo se vean en una cuadricula bonita */
+.team__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.team__member {
+    text-align: center;
+}
+
+/* Para que las fotos sean redondas */
+.team__image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.values__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.values__item {
+    text-align: center;
+    padding: 2rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.values__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Animaciones para cuando agregamos cosas a la lista */
+.shopping-table tr {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.add-item input:focus {
+    animation: pulse 0.3s ease-in-out;
+}
+
+/* Hace que brille cuando escribimos */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(64, 112, 244, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(64, 112, 244, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(64, 112, 244, 0);
+    }
+}
+
+/* Animaciones simples para usar en cualquier parte */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes deslizarDesdeIzquierda {
+    from {
+        transform: translateX(-50px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Clases faciles de usar */
+.animar-aparecer {
+    animation: aparecer 1s ease;
+}
+
+.animar-deslizar {
+    animation: deslizarDesdeIzquierda 1s ease;
+}
+
+/* Este es el circulo que gira cuando algo esta cargando */
+.cargando {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4070f4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Lo hace girar! */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
