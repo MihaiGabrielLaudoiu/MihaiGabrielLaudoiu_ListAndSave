@@ -63,12 +63,17 @@ function updateUIForLoggedUser() {
     }
 }
 
-// Verificar sesión al cargar cualquier página
-document.addEventListener('DOMContentLoaded', async function () {
-    // Asegurar que haya un idioma por defecto
+// Esta funcion centraliza la inicializacion de idioma para no repetir pasos.
+function initializeLanguageForCurrentSession() {
     if (!localStorage.getItem('language')) {
         localStorage.setItem('language', 'es');
     }
+}
+
+// Verificar sesión al cargar cualquier página
+document.addEventListener('DOMContentLoaded', async function () {
+    // Asegurar que haya un idioma por defecto
+    initializeLanguageForCurrentSession();
     
     updateUIForLoggedUser();
     
