@@ -73,6 +73,42 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Esta funcion intenta guardar un producto nuevo en la lista del usuario.
+    async function handleAddProductButtonClick() {
+        var searchTermFromInput = addProductInputElement ? addProductInputElement.value.trim().toLowerCase() : '';
+        var productIndex;
+        var productFoundByName = null;
+
+        if (!searchTermFromInput) {
+            return;
+        }
+
+        for (productIndex = 0; productIndex < allProductsFromDatabase.length; productIndex++) {
+            var currentProductName = allProductsFromDatabase[productIndex].nombre.toLowerCase();
+            if (currentProductName.indexOf(searchTermFromInput) !== -1) {
+                productFoundByName = allProductsFromDatabase[productIndex];
+                break;
+            }
+        }
+
+        if (!productFoundByName) {
+            alert('No se encontro un producto con ese nombre');
+            return;
+        }
+
+        await ApiClient.post('/saved-lists', {
+            id_usuario: activeSesionData.id_usuario,
+            id_producto: productFoundByName.id_producto,
+            cantidad: 1
+        });
+
+        if (addProductInputElement) {
+            addProductInputElement.value = '';
+        }
+
+        await refreshCurrentUserList();
+    }
+
     async function handleDeleteActionInTable(event) {
         var clickedElement = event.target;
         var actionName = clickedElement.getAttribute('data-action');
@@ -83,7 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // En esta primera version solo mostramos la lista cargada.
+    if (addProductButtonElement) {
+        addProductButtonElement.addEventListener('click', handleAddProductButtonClick);
+    }
 
     if (shoppingTableBodyElement) {
         shoppingTableBodyElement.addEventListener('click', function (event) {
