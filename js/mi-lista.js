@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return null;
     }
 
+    // Esta funcion normaliza el texto para comparar sin errores por espacios o mayusculas.
+    function normalizeTextForSearch(rawTextValue) {
+        if (!rawTextValue) {
+            return '';
+        }
+        return rawTextValue.trim().toLowerCase();
+    }
+
     function renderRowsInShoppingTable(rowsToRender) {
         var htmlRows = '';
         var rowIndex;
@@ -75,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Esta funcion intenta guardar un producto nuevo en la lista del usuario.
     async function handleAddProductButtonClick() {
-        var searchTermFromInput = addProductInputElement ? addProductInputElement.value.trim().toLowerCase() : '';
+        var searchTermFromInput = addProductInputElement ? normalizeTextForSearch(addProductInputElement.value) : '';
         var productIndex;
         var productFoundByName = null;
 
@@ -84,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         for (productIndex = 0; productIndex < allProductsFromDatabase.length; productIndex++) {
-            var currentProductName = allProductsFromDatabase[productIndex].nombre.toLowerCase();
+            var currentProductName = normalizeTextForSearch(allProductsFromDatabase[productIndex].nombre);
             if (currentProductName.indexOf(searchTermFromInput) !== -1) {
                 productFoundByName = allProductsFromDatabase[productIndex];
                 break;
