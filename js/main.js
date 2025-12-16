@@ -47,6 +47,19 @@ function handleUserIconClick(e) {
     }
 }
 
+// Esta funcion cierra el menu de usuario para evitar duplicar codigo.
+function closeUserMenuElements(userMenuElement, userIconElement, userMenuOverlayElement) {
+    if (userMenuElement) {
+        userMenuElement.classList.remove('is-visible');
+    }
+    if (userIconElement) {
+        userIconElement.classList.remove('active');
+    }
+    if (userMenuOverlayElement) {
+        userMenuOverlayElement.classList.remove('is-visible');
+    }
+}
+
 // Función para cerrar sesión
 function cerrarSesion() {
     SessionManager.logout();
@@ -63,11 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (userMenuElement && userIconElement) {
         function closeUserMenu(userClickEvent) {
             if (!userMenuElement.contains(userClickEvent.target) && !userIconElement.contains(userClickEvent.target)) {
-                userMenuElement.classList.remove('is-visible');
-                userIconElement.classList.remove('active');
-                if (userMenuOverlayElement) {
-                    userMenuOverlayElement.classList.remove('is-visible');
-                }
+                closeUserMenuElements(userMenuElement, userIconElement, userMenuOverlayElement);
             }
         }
         
