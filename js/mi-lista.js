@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         await ApiClient.post('/saved-lists', {
-            id_usuario: activeSesionData.id_usuario,
+            id_usuario: activeSessionData.id_usuario,
             id_producto: productFoundByName.id_producto,
             cantidad: 1
         });
