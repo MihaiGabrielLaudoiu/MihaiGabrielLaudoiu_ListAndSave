@@ -11,19 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function getUserRows() {
-        var savedRows = await ApiClient.get('/saved-lists');
+        var userRows = await ApiClient.get('/saved-lists/user/' + session.id_usuario);
         var productRows = await ApiClient.get('/products');
-        var userRows = [];
-        var i;
-
         products = productRows;
-
-        for (i = 0; i < savedRows.length; i++) {
-            if (savedRows[i].id_usuario === session.id_usuario) {
-                userRows.push(savedRows[i]);
-            }
-        }
-
         return userRows;
     }
 
@@ -55,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (i = 0; i < rows.length; i++) {
             var row = rows[i];
             var product = getProductById(row.id_producto);
-            var productName = product ? product.nombre : 'Producto #' + row.id_producto;
+            var productName = row.nombre_producto || (product ? product.nombre : 'Producto #' + row.id_producto);
 
             htmlRows += '<tr data-id="' + row.id_lista + '">';
             htmlRows += '<td>' + productName + '</td>';

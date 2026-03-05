@@ -75,6 +75,29 @@ app.get('/api/auth/demo-credentials', (_req, res) => {
     });
 });
 
+app.get('/api/saved-lists/user/:id_usuario', async (req, res) => {
+    const userId = Number(req.params.id_usuario);
+    if (!userId) {
+        return res.status(400).json({ message: 'id_usuario no valido' });
+    }
+
+    const rows = await query(
+        `SELECT 
+            l.id_lista,
+            l.id_usuario,
+            l.id_producto,
+            l.cantidad,
+            p.nombre AS nombre_producto,
+            p.marca AS marca_producto
+        FROM ListasGuardadas l
+        INNER JOIN Productos p ON p.id_producto = l.id_producto
+        WHERE l.id_usuario = ?
+        ORDER BY l.id_lista DESC`,
+        [userId]
+    );
+    res.json(rows);
+});
+
 function buildCrudRoutes(resource, config) {
     app.get(`/api/${resource}`, async (_req, res) => {
         const rows = await query(`SELECT * FROM ${config.table}`);
