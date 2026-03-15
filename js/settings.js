@@ -39,6 +39,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     const expiryDateInput = document.getElementById('expiryDate');
     const cardNameInput = document.getElementById('cardName');
 
+    function validateSettingsForm() {
+        const postalCode = postalCodeInput ? postalCodeInput.value.trim() : '';
+        const cardNumber = cardNumberInput ? cardNumberInput.value.replace(/\s+/g, '') : '';
+
+        if (postalCode && postalCode.length < 4) {
+            alert('El codigo postal no tiene el formato correcto');
+            return false;
+        }
+
+        if (cardNumber && cardNumber.length < 16) {
+            alert('La tarjeta debe tener 16 digitos');
+            return false;
+        }
+
+        return true;
+    }
+
     try {
         const allSettings = await ApiClient.get('/settings');
         const setting = allSettings.find((item) => item.id_usuario === session.id_usuario);
@@ -53,6 +70,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     form?.addEventListener('submit', async (event) => {
         event.preventDefault();
+        if (!validateSettingsForm()) {
+            return;
+        }
 
         try {
             const allSettings = await ApiClient.get('/settings');
