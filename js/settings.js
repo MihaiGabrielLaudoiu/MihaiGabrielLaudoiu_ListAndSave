@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const postalCode = postalCodeInput ? postalCodeInput.value.trim() : '';
         const cardNumber = cardNumberInput ? cardNumberInput.value.replace(/\s+/g, '') : '';
 
-        if (postalCode && postalCode.length < 4) {
+        if (postalCode && postalCode.length !== 5) {
             alert('El codigo postal no tiene el formato correcto');
             return false;
         }
