@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var tableBody = document.querySelector('.shopping-table tbody');
     var addInput = document.querySelector('.add-item input');
     var addButton = document.querySelector('.add-item .button--primary');
+    var exportButton = document.getElementById('export-list-button');
     var session = SessionManager.checkSession();
     var products = [];
+    var currentRows = [];
 
     if (!session || !session.id_usuario) {
         window.location.href = 'login.html';
@@ -63,10 +65,29 @@ document.addEventListener('DOMContentLoaded', function () {
     async function refreshList() {
         try {
             var userRows = await getUserRows();
+            currentRows = userRows;
             renderRows(userRows);
         } catch (error) {
             console.error(error);
         }
+    }
+
+    function exportListAsJson() {
+        var dataToExport = {
+            generated_at: new Date().toISOString(),
+            user_id: session.id_usuario,
+            rows: currentRows
+        };
+        var dataString = JSON.stringify(dataToExport, null, 2);
+        var fileBlob = new Blob([dataString], { type: 'application/json' });
+        var temporaryUrl = URL.createObjectURL(fileBlob);
+        var downloadLink = document.createElement('a');
+        downloadLink.href = temporaryUrl;
+        downloadLink.download = 'mi-lista-' + session.id_usuario + '.json';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(temporaryUrl);
     }
 
     async function handleAddClick() {
@@ -121,6 +142,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (tableBody) {
         tableBody.addEventListener('click', function (event) {
             handleDeleteClick(event);
+        });
+    }
+
+    if (exportButton) {
+        exportButton.addEventListener('click', function () {
+            exportListAsJson();
         });
     }
 
