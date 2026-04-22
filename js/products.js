@@ -3,9 +3,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     var allProductsGrid = document.querySelector('.all-products__grid');
     var searchInput = document.querySelector('.products-search__input');
     var categorySelect = document.querySelector('.products-search__category');
+    var paginationContainer = document.querySelector('.all-products__pagination');
 
     var products = [];
     var categories = {};
+    var filteredProducts = [];
+    var currentPage = 1;
+    var pageSize = 8;
 
     function renderProductCard(product) {
         return '<article class="product-card">' +
@@ -18,11 +22,37 @@ document.addEventListener('DOMContentLoaded', async function () {
     function renderProducts(filteredProducts) {
         var html = '';
         var i;
-        for (i = 0; i < filteredProducts.length; i++) {
-            html += renderProductCard(filteredProducts[i]);
+        var startIndex = (currentPage - 1) * pageSize;
+        var endIndex = startIndex + pageSize;
+        var pagedProducts = filteredProducts.slice(startIndex, endIndex);
+        for (i = 0; i < pagedProducts.length; i++) {
+            html += renderProductCard(pagedProducts[i]);
         }
         if (featuredGrid) featuredGrid.innerHTML = html;
         if (allProductsGrid) allProductsGrid.innerHTML = html;
+    }
+
+    function renderPagination(totalItems) {
+        if (!paginationContainer) {
+            return;
+        }
+        var totalPages = Math.ceil(totalItems / pageSize);
+        var html = '';
+        var pageNumber;
+
+        if (totalPages <= 1) {
+            paginationContainer.innerHTML = '';
+            return;
+        }
+
+        for (pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
+            if (pageNumber === currentPage) {
+                html += '<button class="button button--primary" data-page="' + pageNumber + '">' + pageNumber + '</button> ';
+            } else {
+                html += '<button class="button button--secondary" data-page="' + pageNumber + '">' + pageNumber + '</button> ';
+            }
+        }
+        paginationContainer.innerHTML = html;
     }
 
     function renderCategories() {
@@ -53,7 +83,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        renderProducts(filtered);
+        filteredProducts = filtered;
+        currentPage = 1;
+        renderProducts(filteredProducts);
+        renderPagination(filteredProducts.length);
     }
 
     try {
@@ -66,7 +99,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
         renderCategories();
-        renderProducts(products);
+        filteredProducts = products;
+        renderProducts(filteredProducts);
+        renderPagination(filteredProducts.length);
     } catch (error) {
         console.error(error);
     }
@@ -80,6 +115,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (categorySelect) {
         categorySelect.addEventListener('change', function () {
             applyFilters();
+        });
+    }
+
+    if (paginationContainer) {
+        paginationContainer.addEventListener('click', function (event) {
+            var pageValue = event.target.getAttribute('data-page');
+            if (!pageValue) {
+                return;
+            }
+            currentPage = Number(pageValue);
+            renderProducts(filteredProducts);
+            renderPagination(filteredProducts.length);
         });
     }
 });
