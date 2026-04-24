@@ -1,0 +1,226 @@
+{
+    "title": "List & Save - Encuentra los mejores precios",
+    "menu": {
+        "home": "Inicio",
+        "my_list": "Mi lista",
+        "comparator": "Comparador",
+        "products": "Productos",
+        "about_us": "Nosotros"
+    },
+    "hero": {
+        "title": "Encuentra los mejores precios",
+        "subtitle": "Compara precios de productos en diferentes supermercados en tiempo real",
+        "search_placeholder": "Busca un producto...",
+        "search_button": "Buscar",
+        "search_input_title": "Escribe el nombre del producto que deseas buscar para comparar precios en diferentes supermercados",
+        "search_input_aria": "Campo de búsqueda de productos",
+        "search_button_title": "Pulsa para ver los precios del producto en diferentes supermercados",
+        "search_button_aria": "Realizar búsqueda"
+    },
+    "why_us": {
+        "title": "¿Por qué usar List & Save?",
+        "features": {
+            "money_save": {
+                "icon": "💰",
+                "title": "Ahorra Dinero",
+                "text": "Encuentra los mejores precios en diferentes supermercados"
+            },
+            "time_save": {
+                "icon": "⏰",
+                "title": "Ahorra Tiempo",
+                "text": "Compara precios sin visitar múltiples tiendas"
+            },
+            "real_time": {
+                "icon": "📊",
+                "title": "Precios Actualizados",
+                "text": "Información de precios en tiempo real"
+            }
+        }
+    },
+    "stores": {
+        "title": "Supermercados disponibles",
+        "alt": {
+            "mercadona": "Mercadona",
+            "carrefour": "Carrefour",
+            "dia": "Dia",
+            "lidl": "Lidl"
+        }
+    },
+    "cta": {
+        "title": "¿Listo para empezar a ahorrar?",
+        "text": "Crea tu lista de compra personalizada y descubre dónde conseguir los mejores precios",
+        "button": "Crear mi lista ahora"
+    },
+    "sponsors": {
+        "title": "Nuestros Sponsors",
+        "alt": {
+            "redbull": "Red Bull",
+            "adidas": "Adidas",
+            "santander": "Santander",
+            "bizum": "Bizum",
+            "gobierno": "Gobierno de España",
+            "burgerking": "Burger King"
+        }
+    },
+    "footer": {
+        "description": "La mejor plataforma para comparar precios y ahorrar en tus compras del supermercado",
+        "quick_links": {
+            "title": "Enlaces rápidos",
+            "about": "Sobre nosotros",
+            "contact": "Contacto",
+            "blog": "Blog",
+            "faq": "FAQ"
+        },
+        "legal": {
+            "title": "Legal",
+            "privacy": "Política de privacidad",
+            "terms": "Términos y condiciones",
+            "cookies": "Política de cookies"
+        },
+        "social": {
+            "title": "Síguenos",
+            "contact_info": {
+                "email": "Email: info@listandsave.com",
+                "phone": "Tel: +34 900 123 456"
+            },
+            "icons": {
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "instagram": "Instagram",
+                "linkedin": "LinkedIn"
+            }
+        },
+        "copyright": "List & Save. Todos los derechos reservados."
+    },
+    "auth": {
+        "login": "Iniciar Sesión",
+        "register": "Registrarse",
+        "my_account": "Mi cuenta",
+        "settings": "Ajustes",
+        "logout": "Cerrar sesión"
+    },
+    "register": {
+        "title": "Crear una cuenta",
+        "steps": {
+            "basic": "Datos básicos",
+            "personal": "Datos personales",
+            "preferences": "Preferencias"
+        },
+        "form": {
+            "username": {
+                "label": "Nombre de usuario",
+                "placeholder": "Mihai Gabriel",
+                "hint": "Entre 4 y 16 caracteres, solo letras, números y guiones bajos",
+                "error": "El nombre de usuario debe tener entre 4 y 16 caracteres y solo puede contener letras, números y guiones bajos"
+            },
+            "email": {
+                "label": "Correo electrónico",
+                "placeholder": "ejemplo@correo.com",
+                "hint": "Introduce un correo electrónico válido",
+                "error": "Por favor, introduce un correo electrónico válido"
+            },
+            "password": {
+                "label": "Contraseña",
+                "hint": "Mínimo 8 caracteres, al menos una letra y un número",
+                "error": "La contraseña debe tener al menos 8 caracteres, una letra y un número"
+            },
+            "confirm_password": {
+                "label": "Confirmar contraseña",
+                "hint": "Repite la contraseña",
+                "error": "Las contraseñas no coinciden"
+            },
+            "fullname": {
+                "label": "Nombre completo",
+                "hint": "Tu nombre y apellidos",
+                "error": "El nombre debe contener solo letras y espacios (2-50 caracteres)"
+            },
+            "age": {
+                "label": "Edad",
+                "hint": "Debes ser mayor de edad",
+                "error": "Debes ser mayor de 18 años"
+            },
+            "categories": {
+                "label": "Categorías de interés",
+                "hint": "Selecciona al menos una",
+                "error": "Selecciona al menos una categoría",
+                "options": {
+                    "food": "Alimentación",
+                    "cleaning": "Limpieza",
+                    "home": "Hogar"
+                }
+            }
+        },
+        "buttons": {
+            "next": "Siguiente",
+            "previous": "Anterior",
+            "submit": "Registrarse",
+            "cancel": "Cancelar"
+        },
+        "login_prompt": "¿Ya tienes cuenta?",
+        "success": "Usuario registrado correctamente",
+        "confirm_modal": {
+            "title": "¿Estás seguro que deseas registrarte?",
+            "text": "Una vez registrado, podrás acceder a todas las funcionalidades de la aplicación.",
+            "confirm": "Confirmar",
+            "cancel": "Cancelar"
+        }
+    },
+    "settings": {
+        "title": "Ajustes de Usuario",
+        "tabs": {
+            "location": "Ubicación",
+            "language": "Idioma",
+            "payment": "Pagos"
+        },
+        "location": {
+            "country": {
+                "label": "País",
+                "placeholder": "Selecciona tu país"
+            },
+            "postal_code": {
+                "label": "Código Postal",
+                "placeholder": "Ej: 28001"
+            },
+            "detect_location": "Detectar ubicación"
+        },
+        "language": {
+            "label": "Selecciona tu idioma preferido",
+            "options": {
+                "es": "Español (Castellano)",
+                "ca": "Català",
+                "en": "English"
+            }
+        },
+        "payment": {
+            "card_number": {
+                "label": "Número de Tarjeta",
+                "placeholder": "1234 5678 9012 3456",
+                "error": "Introduce un número de tarjeta válido"
+            },
+            "expiry_date": {
+                "label": "Fecha de Expiración",
+                "placeholder": "MM/YY",
+                "error": "Formato válido: MM/YY"
+            },
+            "cvv": {
+                "label": "CVV",
+                "placeholder": "123",
+                "error": "CVV debe tener 3 o 4 dígitos"
+            },
+            "card_name": {
+                "label": "Nombre en la Tarjeta",
+                "placeholder": "NOMBRE APELLIDOS",
+                "error": "Introduce el nombre como aparece en la tarjeta"
+            }
+        },
+        "buttons": {
+            "save": "Guardar cambios",
+            "back": "Volver"
+        },
+        "messages": {
+            "success": "Configuración guardada correctamente",
+            "location_error": "No se pudo detectar tu ubicación. Por favor, ingresa tu código postal manualmente.",
+            "browser_error": "Tu navegador no soporta la geolocalización."
+        }
+    }
+}

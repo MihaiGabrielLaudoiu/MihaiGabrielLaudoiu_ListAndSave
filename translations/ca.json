@@ -1,0 +1,226 @@
+{
+    "title": "List & Save - Troba els millors preus",
+    "menu": {
+        "home": "Inici",
+        "my_list": "La meva llista",
+        "comparator": "Comparador",
+        "products": "Productes",
+        "about_us": "Nosaltres"
+    },
+    "hero": {
+        "title": "Troba els millors preus",
+        "subtitle": "Compara preus de productes en diferents supermercats en temps real",
+        "search_placeholder": "Cerca un producte...",
+        "search_button": "Cercar",
+        "search_input_title": "Escriu el nom del producte que vols cercar per comparar preus en diferents supermercats",
+        "search_input_aria": "Camp de cerca de productes",
+        "search_button_title": "Prem per veure els preus del producte en diferents supermercats",
+        "search_button_aria": "Realitzar cerca"
+    },
+    "why_us": {
+        "title": "Per què fer servir List & Save?",
+        "features": {
+            "money_save": {
+                "icon": "💰",
+                "title": "Estalvia Diners",
+                "text": "Troba els millors preus en diferents supermercats"
+            },
+            "time_save": {
+                "icon": "⏰",
+                "title": "Estalvia Temps",
+                "text": "Compara preus sense visitar múltiples botigues"
+            },
+            "real_time": {
+                "icon": "📊",
+                "title": "Preus Actualitzats",
+                "text": "Informació de preus en temps real"
+            }
+        }
+    },
+    "stores": {
+        "title": "Supermercats disponibles",
+        "alt": {
+            "mercadona": "Mercadona",
+            "carrefour": "Carrefour",
+            "dia": "Dia",
+            "lidl": "Lidl"
+        }
+    },
+    "cta": {
+        "title": "Preparat per començar a estalviar?",
+        "text": "Crea la teva llista de la compra personalitzada i descobreix on aconseguir els millors preus",
+        "button": "Crear la meva llista ara"
+    },
+    "sponsors": {
+        "title": "Els nostres Patrocinadors",
+        "alt": {
+            "redbull": "Red Bull",
+            "adidas": "Adidas",
+            "santander": "Santander",
+            "bizum": "Bizum",
+            "gobierno": "Govern d'Espanya",
+            "burgerking": "Burger King"
+        }
+    },
+    "footer": {
+        "description": "La millor plataforma per comparar preus i estalviar en les teves compres del supermercat",
+        "quick_links": {
+            "title": "Enllaços ràpids",
+            "about": "Sobre nosaltres",
+            "contact": "Contacte",
+            "blog": "Blog",
+            "faq": "FAQ"
+        },
+        "legal": {
+            "title": "Legal",
+            "privacy": "Política de privacitat",
+            "terms": "Termes i condicions",
+            "cookies": "Política de cookies"
+        },
+        "social": {
+            "title": "Segueix-nos",
+            "contact_info": {
+                "email": "Email: info@listandsave.com",
+                "phone": "Tel: +34 900 123 456"
+            },
+            "icons": {
+                "facebook": "Facebook",
+                "twitter": "Twitter",
+                "instagram": "Instagram",
+                "linkedin": "LinkedIn"
+            }
+        },
+        "copyright": "List & Save. Tots els drets reservats."
+    },
+    "auth": {
+        "login": "Iniciar Sessió",
+        "register": "Registrar-se",
+        "my_account": "El meu compte",
+        "settings": "Configuració",
+        "logout": "Tancar sessió"
+    },
+    "register": {
+        "title": "Crear un compte",
+        "steps": {
+            "basic": "Dades bàsiques",
+            "personal": "Dades personals",
+            "preferences": "Preferències"
+        },
+        "form": {
+            "username": {
+                "label": "Nom d'usuari",
+                "placeholder": "Joan Puig",
+                "hint": "Entre 4 i 16 caràcters, només lletres, números i guions baixos",
+                "error": "El nom d'usuari ha de tenir entre 4 i 16 caràcters i només pot contenir lletres, números i guions baixos"
+            },
+            "email": {
+                "label": "Correu electrònic",
+                "placeholder": "exemple@correu.com",
+                "hint": "Introdueix un correu electrònic vàlid",
+                "error": "Si us plau, introdueix un correu electrònic vàlid"
+            },
+            "password": {
+                "label": "Contrasenya",
+                "hint": "Mínim 8 caràcters, almenys una lletra i un número",
+                "error": "La contrasenya ha de tenir almenys 8 caràcters, una lletra i un número"
+            },
+            "confirm_password": {
+                "label": "Confirmar contrasenya",
+                "hint": "Repeteix la contrasenya",
+                "error": "Les contrasenyes no coincideixen"
+            },
+            "fullname": {
+                "label": "Nom complet",
+                "hint": "El teu nom i cognoms",
+                "error": "El nom ha de contenir només lletres i espais (2-50 caràcters)"
+            },
+            "age": {
+                "label": "Edat",
+                "hint": "Has de ser major d'edat",
+                "error": "Has de ser major de 18 anys"
+            },
+            "categories": {
+                "label": "Categories d'interès",
+                "hint": "Selecciona almenys una",
+                "error": "Selecciona almenys una categoria",
+                "options": {
+                    "food": "Alimentació",
+                    "cleaning": "Neteja",
+                    "home": "Llar"
+                }
+            }
+        },
+        "buttons": {
+            "next": "Següent",
+            "previous": "Anterior",
+            "submit": "Registrar-se",
+            "cancel": "Cancel·lar"
+        },
+        "login_prompt": "Ja tens un compte?",
+        "success": "Usuari registrat correctament",
+        "confirm_modal": {
+            "title": "Estàs segur que vols registrar-te?",
+            "text": "Un cop registrat, podràs accedir a totes les funcionalitats de l'aplicació.",
+            "confirm": "Confirmar",
+            "cancel": "Cancel·lar"
+        }
+    },
+    "settings": {
+        "title": "Configuració d'Usuari",
+        "tabs": {
+            "location": "Ubicació",
+            "language": "Idioma",
+            "payment": "Pagaments"
+        },
+        "location": {
+            "country": {
+                "label": "País",
+                "placeholder": "Selecciona el teu país"
+            },
+            "postal_code": {
+                "label": "Codi Postal",
+                "placeholder": "Ex: 08001"
+            },
+            "detect_location": "Detectar ubicació"
+        },
+        "language": {
+            "label": "Selecciona el teu idioma preferit",
+            "options": {
+                "es": "Espanyol (Castellà)",
+                "ca": "Català",
+                "en": "Anglès"
+            }
+        },
+        "payment": {
+            "card_number": {
+                "label": "Número de Targeta",
+                "placeholder": "1234 5678 9012 3456",
+                "error": "Introdueix un número de targeta vàlid"
+            },
+            "expiry_date": {
+                "label": "Data de Caducitat",
+                "placeholder": "MM/AA",
+                "error": "Format vàlid: MM/AA"
+            },
+            "cvv": {
+                "label": "CVV",
+                "placeholder": "123",
+                "error": "El CVV ha de tenir 3 o 4 dígits"
+            },
+            "card_name": {
+                "label": "Nom a la Targeta",
+                "placeholder": "NOM COGNOMS",
+                "error": "Introdueix el nom tal com apareix a la targeta"
+            }
+        },
+        "buttons": {
+            "save": "Desar canvis",
+            "back": "Tornar"
+        },
+        "messages": {
+            "success": "Configuració desada correctament",
+            "location_error": "No s'ha pogut detectar la teva ubicació. Si us plau, introdueix el teu codi postal manualment.",
+            "browser_error": "El teu navegador no suporta la geolocalització."
+        }
+    }
+} 

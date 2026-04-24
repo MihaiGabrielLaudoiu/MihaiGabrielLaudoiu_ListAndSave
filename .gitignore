@@ -1,3 +1,24 @@
 node_modules/
 .env
 npm-debug.log*
+
+# Logs
+*.log
+logs/
+
+# Build / cache
+dist/
+build/
+coverage/
+.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime temp files
+tmp/
+temp/
+*.tmp

@@ -1,8 +1,8 @@
 var SessionManager = {
     login: async function (credentials) {
-        var activeSessionFromServer = await AuthService.login(credentials);
+        var session = await AuthService.login(credentials);
         updateUIForLoggedUser();
-        return activeSessionFromServer;
+        return session;
     },
 
     registerUser: async function (userData) {
@@ -42,46 +42,40 @@ var SessionManager = {
 
 // Función para actualizar la UI según el estado de la sesión
 function updateUIForLoggedUser() {
-    var activeUserData = SessionManager.checkSession();
-    var authButtonsDesktopElement = document.getElementById('auth-buttons');
-    var authButtonsMobileElement = document.querySelector('.auth-buttons-mobile');
-    var userMenuElement = document.getElementById('user-menu');
-    var userIconElement = document.querySelector('.header__user');
+    var userData = SessionManager.checkSession();
+    var authButtonsDesktop = document.getElementById('auth-buttons');
+    var authButtonsMobile = document.querySelector('.auth-buttons-mobile');
+    var userMenu = document.getElementById('user-menu');
+    var userIcon = document.querySelector('.header__user');
     
-    if (activeUserData) {
-        // Usuario con sesión iniciada
-        if (authButtonsDesktopElement) authButtonsDesktopElement.style.display = 'none';
-        if (authButtonsMobileElement) authButtonsMobileElement.style.display = 'none';
-        if (userMenuElement) userMenuElement.style.display = 'block';
-        if (userIconElement) userIconElement.style.display = 'block';
+    if (userData) {
+        if (authButtonsDesktop) authButtonsDesktop.style.display = 'none';
+        if (authButtonsMobile) authButtonsMobile.style.display = 'none';
+        if (userMenu) userMenu.style.display = 'block';
+        if (userIcon) userIcon.style.display = 'block';
     } else {
-        // Usuario sin sesión
-        if (authButtonsDesktopElement) authButtonsDesktopElement.style.display = 'block';
-        if (authButtonsMobileElement) authButtonsMobileElement.style.display = 'flex';
-        if (userMenuElement) userMenuElement.style.display = 'none';
-        if (userIconElement) userIconElement.style.display = 'none';
+        if (authButtonsDesktop) authButtonsDesktop.style.display = 'block';
+        if (authButtonsMobile) authButtonsMobile.style.display = 'flex';
+        if (userMenu) userMenu.style.display = 'none';
+        if (userIcon) userIcon.style.display = 'none';
     }
 }
 
-// Esta funcion centraliza la inicializacion de idioma para no repetir pasos.
-function initializeLanguageForCurrentSession() {
+function ensureDefaultLanguage() {
     if (!localStorage.getItem('language')) {
         localStorage.setItem('language', 'es');
     }
 }
 
-// Verificar sesión al cargar cualquier página
 document.addEventListener('DOMContentLoaded', async function () {
-    // Asegurar que haya un idioma por defecto
-    initializeLanguageForCurrentSession();
+    ensureDefaultLanguage();
     
     updateUIForLoggedUser();
     
-    // Configurar el selector de idioma en ajustes
-    var languageSelectElement = document.getElementById('language');
-    if (languageSelectElement) {
-        languageSelectElement.value = SessionManager.getCurrentLanguage();
-        languageSelectElement.addEventListener('change', function (event) {
+    var languageSelect = document.getElementById('language');
+    if (languageSelect) {
+        languageSelect.value = SessionManager.getCurrentLanguage();
+        languageSelect.addEventListener('change', function (event) {
             SessionManager.setLanguage(event.target.value);
         });
     }

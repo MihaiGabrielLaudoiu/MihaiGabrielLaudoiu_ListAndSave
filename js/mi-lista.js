@@ -1,141 +1,138 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var shoppingTableBodyElement = document.querySelector('.shopping-table tbody');
-    var addProductInputElement = document.querySelector('.add-item input');
-    var addProductButtonElement = document.querySelector('.add-item .button--primary');
-    var activeSessionData = SessionManager.checkSession();
-    var allProductsFromDatabase = [];
+    var tableBody = document.querySelector('.shopping-table tbody');
+    var addInput = document.querySelector('.add-item input');
+    var addButton = document.querySelector('.add-item .button--primary');
+    var session = SessionManager.checkSession();
+    var products = [];
 
-    if (!activeSessionData || !activeSessionData.id_usuario) {
+    if (!session || !session.id_usuario) {
         window.location.href = 'login.html';
         return;
     }
 
-    // Esta funcion carga la lista del usuario activo y todos los productos.
-    async function getRowsForCurrentUserList() {
-        var savedListRows = await ApiClient.get('/saved-lists');
-        var allProductsRows = await ApiClient.get('/products');
-        var filteredRowsForUser = [];
-        var rowIndex;
+    async function getUserRows() {
+        var savedRows = await ApiClient.get('/saved-lists');
+        var productRows = await ApiClient.get('/products');
+        var userRows = [];
+        var i;
 
-        allProductsFromDatabase = allProductsRows;
+        products = productRows;
 
-        for (rowIndex = 0; rowIndex < savedListRows.length; rowIndex++) {
-            if (savedListRows[rowIndex].id_usuario === activeSessionData.id_usuario) {
-                filteredRowsForUser.push(savedListRows[rowIndex]);
+        for (i = 0; i < savedRows.length; i++) {
+            if (savedRows[i].id_usuario === session.id_usuario) {
+                userRows.push(savedRows[i]);
             }
         }
 
-        return filteredRowsForUser;
+        return userRows;
     }
 
-    function getProductByIdentifier(productIdentifier) {
-        var productIndex;
-        for (productIndex = 0; productIndex < allProductsFromDatabase.length; productIndex++) {
-            if (allProductsFromDatabase[productIndex].id_producto === productIdentifier) {
-                return allProductsFromDatabase[productIndex];
+    function getProductById(productId) {
+        var i;
+        for (i = 0; i < products.length; i++) {
+            if (products[i].id_producto === productId) {
+                return products[i];
             }
         }
         return null;
     }
 
-    // Esta funcion normaliza el texto para comparar sin errores por espacios o mayusculas.
-    function normalizeTextForSearch(rawTextValue) {
-        if (!rawTextValue) {
+    function normalizeText(text) {
+        if (!text) {
             return '';
         }
-        return rawTextValue.trim().toLowerCase();
+        return text.trim().toLowerCase();
     }
 
-    function renderRowsInShoppingTable(rowsToRender) {
+    function renderRows(rows) {
         var htmlRows = '';
-        var rowIndex;
+        var i;
 
-        if (!shoppingTableBodyElement) {
+        if (!tableBody) {
             return;
         }
 
-        for (rowIndex = 0; rowIndex < rowsToRender.length; rowIndex++) {
-            var currentRowData = rowsToRender[rowIndex];
-            var productDataForRow = getProductByIdentifier(currentRowData.id_producto);
-            var productNameToShow = productDataForRow ? productDataForRow.nombre : 'Producto #' + currentRowData.id_producto;
+        for (i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var product = getProductById(row.id_producto);
+            var productName = product ? product.nombre : 'Producto #' + row.id_producto;
 
-            htmlRows += '<tr data-id="' + currentRowData.id_lista + '">';
-            htmlRows += '<td>' + productNameToShow + '</td>';
-            htmlRows += '<td>' + currentRowData.cantidad + '</td>';
+            htmlRows += '<tr data-id="' + row.id_lista + '">';
+            htmlRows += '<td>' + productName + '</td>';
+            htmlRows += '<td>' + row.cantidad + '</td>';
             htmlRows += '<td class="best-price">-</td>';
             htmlRows += '<td><div class="actions">';
-            htmlRows += '<button class="button button--secondary" data-action="delete" data-id="' + currentRowData.id_lista + '">Eliminar</button>';
+            htmlRows += '<button class="button button--secondary" data-action="delete" data-id="' + row.id_lista + '">Eliminar</button>';
             htmlRows += '</div></td>';
             htmlRows += '</tr>';
         }
 
-        shoppingTableBodyElement.innerHTML = htmlRows;
+        tableBody.innerHTML = htmlRows;
     }
 
-    async function refreshCurrentUserList() {
+    async function refreshList() {
         try {
-            var rowsForCurrentUser = await getRowsForCurrentUserList();
-            renderRowsInShoppingTable(rowsForCurrentUser);
+            var userRows = await getUserRows();
+            renderRows(userRows);
         } catch (error) {
             console.error(error);
         }
     }
 
-    // Esta funcion intenta guardar un producto nuevo en la lista del usuario.
-    async function handleAddProductButtonClick() {
-        var searchTermFromInput = addProductInputElement ? normalizeTextForSearch(addProductInputElement.value) : '';
-        var productIndex;
-        var productFoundByName = null;
+    async function handleAddClick() {
+        var searchText = addInput ? normalizeText(addInput.value) : '';
+        var i;
+        var foundProduct = null;
 
-        if (!searchTermFromInput) {
+        if (!searchText) {
             return;
         }
 
-        for (productIndex = 0; productIndex < allProductsFromDatabase.length; productIndex++) {
-            var currentProductName = normalizeTextForSearch(allProductsFromDatabase[productIndex].nombre);
-            if (currentProductName.indexOf(searchTermFromInput) !== -1) {
-                productFoundByName = allProductsFromDatabase[productIndex];
+        for (i = 0; i < products.length; i++) {
+            var productName = normalizeText(products[i].nombre);
+            if (productName.indexOf(searchText) !== -1) {
+                foundProduct = products[i];
                 break;
             }
         }
 
-        if (!productFoundByName) {
+        if (!foundProduct) {
             alert('No se encontro un producto con ese nombre');
             return;
         }
 
         await ApiClient.post('/saved-lists', {
-            id_usuario: activeSessionData.id_usuario,
-            id_producto: productFoundByName.id_producto,
+            id_usuario: session.id_usuario,
+            id_producto: foundProduct.id_producto,
             cantidad: 1
         });
 
-        if (addProductInputElement) {
-            addProductInputElement.value = '';
+        if (addInput) {
+            addInput.value = '';
         }
 
-        await refreshCurrentUserList();
+        await refreshList();
     }
 
-    async function handleDeleteActionInTable(event) {
+    async function handleDeleteClick(event) {
         var clickedElement = event.target;
         var actionName = clickedElement.getAttribute('data-action');
         if (actionName === 'delete') {
-            var rowIdentifierToDelete = clickedElement.getAttribute('data-id');
-            await ApiClient.delete('/saved-lists/' + rowIdentifierToDelete);
-            await refreshCurrentUserList();
+            var rowId = clickedElement.getAttribute('data-id');
+            await ApiClient.delete('/saved-lists/' + rowId);
+            await refreshList();
         }
     }
 
-    if (addProductButtonElement) {
-        addProductButtonElement.addEventListener('click', handleAddProductButtonClick);
+    if (addButton) {
+        addButton.addEventListener('click', handleAddClick);
     }
 
-    if (shoppingTableBodyElement) {
-        shoppingTableBodyElement.addEventListener('click', function (event) {
-            handleDeleteActionInTable(event);
+    if (tableBody) {
+        tableBody.addEventListener('click', function (event) {
+            handleDeleteClick(event);
         });
     }
 
-    refreshCurrentUserList();
+    refreshList();
 });

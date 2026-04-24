@@ -1,21 +1,21 @@
 (function initApiClient(globalScope) {
-    var isHttpProtocol = window.location.protocol === 'http:' || window.location.protocol === 'https:';
-    var API_BASE_URL = isHttpProtocol ? window.location.origin + '/api' : 'http://localhost:3000/api';
+    var isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+    var API_BASE_URL = isHttp ? window.location.origin + '/api' : 'http://localhost:3000/api';
 
     async function request(path, options) {
         var requestOptions = options || {};
-        var extraHeaders = requestOptions.headers || {};
+        var customHeaders = requestOptions.headers || {};
         var mergedHeaders = {
             'Content-Type': 'application/json'
         };
         var headerName;
         var finalRequestOptions = {};
-        var requestOptionName;
-        for (headerName in extraHeaders) {
-            mergedHeaders[headerName] = extraHeaders[headerName];
+        var optionName;
+        for (headerName in customHeaders) {
+            mergedHeaders[headerName] = customHeaders[headerName];
         }
-        for (requestOptionName in requestOptions) {
-            finalRequestOptions[requestOptionName] = requestOptions[requestOptionName];
+        for (optionName in requestOptions) {
+            finalRequestOptions[optionName] = requestOptions[optionName];
         }
         finalRequestOptions.headers = mergedHeaders;
         var response = await fetch(API_BASE_URL + path, finalRequestOptions);
@@ -24,10 +24,10 @@
             return null;
         }
 
-        var rawTextFromServer = await response.text();
-        var parsedResponseData = null;
+        var rawResponse = await response.text();
+        var responseData = null;
         try {
-            parsedResponseData = rawTextFromServer ? JSON.parse(rawTextFromServer) : null;
+            responseData = rawResponse ? JSON.parse(rawResponse) : null;
         } catch (_error) {
             if (!response.ok) {
                 throw new Error('Respuesta invalida del servidor (' + response.status + ')');
@@ -36,9 +36,9 @@
         }
 
         if (!response.ok) {
-            throw new Error((parsedResponseData && parsedResponseData.message) || 'Error en la peticion');
+            throw new Error((responseData && responseData.message) || 'Error en la peticion');
         }
-        return parsedResponseData;
+        return responseData;
     }
 
     globalScope.ApiClient = {
