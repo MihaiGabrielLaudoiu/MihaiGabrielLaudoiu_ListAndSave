@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const select2 = document.getElementById('product2');
     const details1 = document.getElementById('details1');
     const details2 = document.getElementById('details2');
+    const clearComparisonButton = document.getElementById('clear-comparison');
+    const addToListButton = document.getElementById('add-to-list');
 
     let productStoreRows = [];
 
@@ -81,4 +83,52 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     select1?.addEventListener('change', (event) => renderDetails(details1, event.target.value));
     select2?.addEventListener('change', (event) => renderDetails(details2, event.target.value));
+
+    clearComparisonButton?.addEventListener('click', () => {
+        if (select1) {
+            select1.value = '';
+        }
+        if (select2) {
+            select2.value = '';
+        }
+        if (details1) {
+            details1.innerHTML = '';
+        }
+        if (details2) {
+            details2.innerHTML = '';
+        }
+    });
+
+    addToListButton?.addEventListener('click', async () => {
+        const session = SessionManager.checkSession();
+        const selectedProductStoreId = select1?.value || select2?.value;
+
+        if (!session || !session.id_usuario) {
+            alert('Necesitas iniciar sesión para añadir productos a tu lista');
+            return;
+        }
+
+        if (!selectedProductStoreId) {
+            alert('Selecciona un producto antes de añadirlo');
+            return;
+        }
+
+        const selectedRow = productStoreRows.find((item) => item.id_producto_tienda === Number(selectedProductStoreId));
+        if (!selectedRow) {
+            alert('No se encontró el producto seleccionado');
+            return;
+        }
+
+        try {
+            await ApiClient.post('/saved-lists', {
+                id_usuario: session.id_usuario,
+                id_producto: selectedRow.id_producto,
+                cantidad: 1
+            });
+            alert('Producto añadido a tu lista');
+        } catch (error) {
+            console.error(error);
+            alert(error.message || 'No se pudo añadir el producto');
+        }
+    });
 });
