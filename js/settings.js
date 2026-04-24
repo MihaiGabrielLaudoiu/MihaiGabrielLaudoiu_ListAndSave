@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cardNumberInput = document.getElementById('cardNumber');
     const expiryDateInput = document.getElementById('expiryDate');
     const cardNameInput = document.getElementById('cardName');
+    const submitButton = form ? form.querySelector('button[type="submit"]') : null;
 
     function validateSettingsForm() {
         const postalCode = postalCodeInput ? postalCodeInput.value.trim() : '';
@@ -74,6 +75,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.dataset.originalText = submitButton.textContent;
+            submitButton.textContent = 'Guardando...';
+        }
+
         try {
             const allSettings = await ApiClient.get('/settings');
             const setting = allSettings.find((item) => item.id_usuario === session.id_usuario);
@@ -95,6 +102,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error(error);
             alert(error.message || 'No se pudo guardar');
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = submitButton.dataset.originalText || 'Guardar';
+            }
         }
     });
 
